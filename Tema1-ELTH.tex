@@ -1,0 +1,729 @@
+\documentclass[12pt,twoside]{report}
+\usepackage{amsmath}
+\usepackage{url}
+
+\usepackage[unicode]{hyperref} 
+\usepackage{amsmath,epsfig,pifont,calc,pifont}	
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usetikzlibrary{shapes,arrows,positioning}
+\usetikzlibrary{decorations.markings}
+\usepackage{graphicx}
+\usepackage{float}
+
+% Setari ale paginii / ndentarea la inceput de paragraf
+\setlength{\parindent}{3ex}
+
+% Dimensiunea textului pe pagina 
+\setlength{\voffset}{-2cm}
+\setlength{\textheight}{23cm}  
+\setlength{\textwidth}{16cm}
+\setlength{\topmargin}{0cm}
+\setlength{\headsep}{1cm}
+
+% Margini
+\setlength{\oddsidemargin}{0.5cm}
+\setlength{\evensidemargin}{-0.3cm}
+\raggedbottom
+
+%Necesare; in caz contrar apare Contents, respectiv Figure
+\renewcommand{\contentsname}{Cuprins}
+\renewcommand{\figurename}{Figura}
+%\renewcommand\refname{Bibliografie 'si Webografie}
+
+\usepackage{amsmath}
+\numberwithin{figure}{section}
+\usepackage{alltt}
+
+\renewcommand{\baselinestretch}{1.2}
+\newcommand{\myindent}{\hspace*{3ex}}
+\newcommand{\quotes}[1]{``#1"}
+
+\hypersetup{
+    colorlinks=false,
+    pdfborder={0 0 0},
+}
+
+
+
+\input{symbols/romanianCircuitSymbols}
+
+
+\begin{document}
+
+
+	\begin{titlepage}
+		\begin{figure}
+			\includegraphics[scale=0.2]{upb.jpg}
+			\vspace{1cm}
+			\begin{center}
+			{\LARGE\bfseries Universitatea Politehnic\u{a} Bucure\c{s}ti}
+			\end{center}
+
+			
+		\end{figure}
+		\\		
+		\begin{center}
+		{\Huge Bazele Electrotehnicii \\}
+		\vspace{1cm}
+		{\Huge -TEMA 1-}\vfill
+		
+		
+		
+		{\Large Pui\c{s}or Oana Daniela}
+		\\
+		{\Large p.oanadaniela@gmail.com}
+		\\
+		{\Large grupa 311 CD}\vfill
+		\paragraph{Abstract}{\large Acest document con\c{t}ine rezolvarea primei teme la discplina Bazele elecrotehnicii,ceea ce presupune generarea unui circuit,\^{i}mpreuna cu grafurile sale de curent \c{s}i tensiune.Tot aici apare \c{s}i o simulare a respectivului  circuit in LTspice.}
+		\\
+		
+		
+		{\Large 2 Aprilie 2017}
+		
+		
+		\end{center}
+	
+		
+	\end{titlepage}
+	
+	\newpage
+	
+	
+	\tableofcontents
+	
+	
+                                   
+	
+%------------------------cerinta 1-----------------------
+
+		\newpage
+		\section{Cerin\c{t}a 1 : Generarea circuitului}
+		
+		\paragraph{ Pentru generarea circuitului am ales mai \^{i}nt\^{a}i o pereche de grafuri orientate Gi \c{s}i Gu.Am ales valorile arbitrare,\^{i}n cazul curen\c{t}ilor, mai \^int\^{a} pe cordele coarborelui,iar \^{i}n func\c{t}i de ele am calculat intensit\u{a}\c{t}ile pe arbore. }
+		
+		\endpage
+		\hfill
+		
+	
+			\subsection{Cerin\c{t}a 1.a : Grafuri de tensiune \c{s}i curent}
+			\hfill
+			\\
+		\begin{center}
+	
+		
+		\begin{tikzpicture}
+		\node[shape=circle,draw=black] (0) at (0,0) {0};
+		\node[shape=circle,draw=black] (1) at (0,-4) {1};
+		\node[shape=circle,draw=black] (5) at (-2,0) {5};
+		\node[shape=circle,draw=black] (3) at (1,2) {3};
+		\node[shape=circle,draw=black] (4) at (-1,2) {4};
+		\node[shape=circle,draw=black] (2) at (5,2) {2};
+		
+		
+		\draw[->] (1) to (0);
+		\caption (1.5,-1) {I\small{1}};
+		
+		\draw[--] (2) to (3);
+		\draw[--] (4) to (0);
+		\draw[--] (4) to (5);
+		\draw[--] (2) to (5,-4);
+		
+		\begin{scope}[very thick,decoration={
+    markings,
+    mark=at position 0.5 with {\arrow{>}}}
+    ] 
+    \draw[postaction={decorate}] (5,-4) to (1); 
+    \draw[postaction={decorate}]  (1) --node [left] {\large I\small{2} } (2);
+    \draw[postaction={decorate}] (2) --node [right] {\large I\small{9} } (5,-4);
+    \draw[postaction={decorate}] (3) --node [above] {\large I\small{6} } (4);
+    \draw[postaction={decorate}] (2) --node [above] {\large I\small{8}} (3);
+    \draw[postaction={decorate}] (0) --node [right] {\large I\small{3}}  (3);
+    \draw[postaction={decorate}] (0) --node [above] {\large I\small{5}} (5);
+    \draw[postaction={decorate}] (4) --node[above] {\large I\small{4}} (0);
+    \draw[postaction={decorate}] (4) --node [left] {\large I\small{7}} (5);
+    \draw[--] (5) to (-2,-4);
+    \draw[postaction={decorate}] (-2,-4) --node [above] {\large I\small{10}} (1);
+    \draw[postaction={decorate}] (1) -- node [left] {\large I\small{1}} (0);
+    
+ 
+    \end{scope}
+		
+		\end{tikzpicture}
+		 
+		\caption{Figura 1 : Graful de curent G\small{i}}
+		\vspace{1cm}
+		
+		{\large Intensit\u{a}\c{t}i ale coarborelui:}
+		\vspace{1cm}
+		
+		
+		{I\small{6} = -1 A; I\small{7} = 3 A; I\small{8} = 6 A; I\small{9} = -5 A; I\small{10} = 4 A;}
+		\vspace{1cm}
+		
+		{\large Aplic\^{a}nd prima lege a lui Kirchhoff am ob\c{t}inut:}
+		\vspace{3cm}
+		\end{center}
+		
+		{\large NOD 0 :}
+		
+		\begin{equation}
+		I\small{1} + I\small{4} = I\small{3} + I\small{5}
+		\vspace{0.5cm}
+		\end{equation}
+		
+		{\large NOD 1 :}
+		
+		\begin{equation}
+		I\small{10} + I\small{9} = I\small{1} + I\small{2}
+		\vspace{0.5cm}
+		\end{equation}
+		
+		
+			
+		{\large NOD 2 :}
+		
+		\begin{equation}
+		I\small{2} = I\small{8} + I\small{9}
+		\vspace{0.5cm}
+		\end{equation}
+	
+		
+			
+		{\large NOD 3 :}
+		
+		\begin{equation}
+		I\small{3} + I\small{8} = I\small{6}
+		\vspace{0.5cm}
+		\end{equation}
+		
+			
+		{\large NOD 4 :}
+		
+		\begin{equation}
+		I\small{6} = I\small{7} + I\small{4}
+		\vspace{0.5cm}
+		\end{equation}
+		
+		
+			
+		{\large NOD 5 :}
+		
+		\begin{equation}
+		I\small{5} + I\small{7} = I\small{10}
+		\vspace{0.5cm}
+		\end{equation}
+		
+		
+		\paragraph{\^{I}n final am ob\c{t}inut intensit\u{a}\c{t}ile din arbore : 	I\small{1} = -2 A;I\small{2} = 1 A;I\small{3} = -7 A;I\small{4} = -4 A;I\small{5} = 1 A}
+		\\
+		\begin{center}
+	
+		
+		\begin{tikzpicture}
+		\node[shape=circle,draw=black] (0) at (0,0) {0};
+		\node[shape=circle,draw=black] (1) at (0,-4) {1};
+		\node[shape=circle,draw=black] (5) at (-2,0) {5};
+		\node[shape=circle,draw=black] (3) at (1,2) {3};
+		\node[shape=circle,draw=black] (4) at (-1,2) {4};
+		\node[shape=circle,draw=black] (2) at (5,2) {2};
+		
+		\draw[->] (1) --node [right] {U\small{a}} (0);
+		\draw[->] (2) --node [above] {U\small{b}} (1);
+		\draw[->] (3) --node [above] {U\small{h}} (2);
+		\draw[->] (3) --node [above] {U\small{g}} (4);
+		\draw[->] (0) --node [right] {U\small{d}} (4);
+		\draw[->] (5) --node [right] {U\small{f}} (4);
+		\draw[->] (0) --node [above] {U\small{e}} (5);
+		\draw[->] (0) --node [right] {U\small{c}} (3);
+		\draw[--] (5) --node [right] {U\small{k}} (-2,-4);
+		\draw[->] (-2,-4) to (1);
+		\draw[--] (2) --node [right] {U\small{i}} (5,-4);
+		\draw[->] (5,-4) to (1);
+		
+		
+		\draw [<-,line width=1pt,red] (-1,-1.9) ++(140:5mm) arc (+220:10:5mm) --++(110:2mm);
+		\draw [<-,line width=1pt,red] (2,0) ++(140:5mm) arc (-220:10:5mm) --++(110:2mm);
+		\draw [<-,line width=1pt,red] (0,0.8) ++(140:5mm) arc (+220:10:5mm) --++(110:2mm);
+		\draw [<-,line width=1pt,red] (3,-3) ++(140:5mm) arc (+220:10:5mm) --++(110:2mm);
+		\draw [<-,line width=1pt,red] (-1,0.5) ++(140:5mm) arc (-220:10:5mm) --++(110:2mm);
+		
+		
+		\end{tikzpicture}
+		 
+		\caption{Figura 2 : Graful de tensiune G\small{u}}
+		\end{center}		
+		
+				
+		\paragraph{\^{I}n cazul grafului de tensiuni,am ales tensiuni arbitrare pe arbore : }
+		
+		\begin{equation}
+		U\small{a} = 5 V;
+		U\small{b} = -3 V;
+		U\small{c} = 2 V;
+		U\small{d} = -1 V;
+		U\small{e} = 4 V;
+		
+		\end{equation}
+		
+		{\large Alplic\^{a}nd legea a doua a lui Kirchhoff am ob\c{t}inut :}
+		
+		{\large [1] = {0 1 2 3} :}
+		
+		\begin{equation}
+		U\small{b} + U\small{a} + U\small{c} + U\small{h} = 0
+		\end{equation}
+		
+		{\large [2] = {2 1} :}
+		
+		\begin{equation}
+		U\small{b} - U\small{i} = 0
+		\end{equation}
+		
+		
+			
+		{\large [3] = {0 1 5} :}
+		
+		\begin{equation}
+		U\small{a} + U\small{e} - U\small{k} = 0
+		\end{equation}
+	
+		
+			
+		{\large [4] = {0 4 5} :}
+		
+		\begin{equation}
+		U\small{f} + U\small{e} + U\small{d} = 0
+		\end{equation}
+		
+		
+			
+		{\large [5] = {0 3 4} :}
+		
+		\begin{equation}
+		U\small{c} + U\small{g} - U\small{d} = 0
+		\end{equation}
+
+		
+		\paragraph{\c{S}i am ob\c{t}inut :}
+		
+		\begin{equation}
+		U\small{h} = -4 V;
+		U\small{i} = -3 V;
+		U\small{k} = 9 V;
+		U\small{f} = -5 V;
+		U\small{g} = -4 V;
+		\end{equation}
+		
+	
+	
+			\subsection{Cerin\c{t}a 1.b : Elementele circuitului}
+			
+		\begin{center}
+		\begin{circuitikz}
+		\node[shape=circle,draw=black] (0) at (0,0) {0};
+		\node[shape=circle,draw=black] (1) at (0,-4) {1};
+		\node[shape=circle,draw=black] (5) at (-5,0) {5};
+		\node[shape=circle,draw=black] (3) at (2,3) {3};
+		\node[shape=circle,draw=black] (4) at (-3,3) {4};
+		\node[shape=circle,draw=black] (2) at (6,3) {2};
+		
+		\draw (0) to[romanianVoltageSource, l = ${E_1 = 5V}$, *-*] (1);
+		\draw (1) to[european resistor,l = $R_2$] (2);
+		\draw (3) to[european resistor,l = $R_3$] (4);
+		\draw (4) to[european resistor,l = $R_4$] (0);
+		\draw (0) to[european resistor,l = $R_5$] (5);
+		\draw (4) to[european resistor,l = $R_6$] (5);
+		\draw (3) to[romanianVoltageSource, l=${E_2 = 2V}$, *-*] (0);
+		\draw (5) to[european resistor,l = $R_1$] (-5,-4);
+		\draw[--] (-5,-4) to (1);
+		\draw (2) to[european resistor,l = $R_7$] (6,-4);
+		\draw[--] (1) to (6,-4);
+		\draw (2) to[romanianCurrentSource ,l = $J$, *-*] (3);
+		\end{circuitikz}
+		\end{center}
+		
+		\begin{center}
+		\caption{Figura 3 : Graful,cu elementele circuitului}
+		\end{center}
+		
+			
+			\hfill
+			
+		\paragraph{Valorile elementelor,deduse din a doua lege a lui Kirchhoff :}
+		
+		\begin{equation}
+		U\small{a} = E\small{1}
+		\Rightarrow
+		E\small{1} = 5 V
+		\end{equation}
+		
+		\begin{equation}
+		U\small{c} = E\small{2}
+		\Rightarrow
+		E\small{2} = 2 V
+		\end{equation}
+		
+		\begin{equation}
+		J\small{1} = I\small{8}
+		\Rightarrow
+		J\small{1} = 6 A
+		\end{equation}
+		
+		\begin{equation}
+		U\small{k} + R\small{1} I\small{10} = 0
+		\Rightarrow
+		R\small{1} = -U\small{k} \setminus I\small{10}
+		\Rightarrow
+		R\small{1} = -9\setminus4 \Omega
+		\end{equation}
+		
+		\begin{equation}
+		U\small{b} + R\small{2} I\small{2} = 0
+		\Rightarrow 
+		R\small{2} = -U\small{b} \setminus I\small{2}
+		\Rightarrow
+		R\small{1} = 3 \Omega
+		\end{equation}
+		
+		\begin{equation}
+		U\small{g} - R\small{3} I\small{6} = 0
+		\Rightarrow
+		R\small{3} = U\small{g} \setminus I\small{6}
+		\Rightarrow
+		R\small{3} = 3 \Omega
+		\end{equation}
+		
+		\begin{equation}
+		U\small{d} + R\small{4} I\small{4} = 0
+		\Rightarrow
+		R\small{4} = -U\small{d} \setminus I\small{4}
+		\Rightarrow
+		R\small{4} = -1\setminus4 \Omega
+		\end{equation}
+		
+		\begin{equation}
+		U\small{e} - R\small{5} I\small{5} = 0
+		\Rightarrow
+		R\small{5} = U\small{e} \setminus I\small{5}
+		\Rightarrow
+		R\small{4} = 4 \Omega
+		\end{equation}
+		
+		\begin{equation}
+		U\small{f} + R\small{6} I\small{7} = 0
+		\Rightarrow
+		R\small{6} = -U\small{f} \setminus I\small{7}
+		\Rightarrow
+		R\small{6} = 5\setminus3 \Omega
+		\end{equation}
+		
+		\begin{equation}
+		U\small{i} - R\small{7} I\small{9} = 0
+		\Rightarrow
+		R\small{7} = U\small{i} \setminus I\small{9}
+		\Rightarrow
+		R\small{7} = 3\setminus5 \Omega
+		\end{equation}
+		
+		\vspace{1cm}
+		
+		\begin{center}
+		\begin{circuitikz}
+		\node[shape=circle,draw=black] (0) at (0,0) {0};
+		\node[shape=circle,draw=black] (1) at (0,-4) {1};
+		\node[shape=circle,draw=black] (5) at (-5,0) {5};
+		\node[shape=circle,draw=black] (3) at (2,3) {3};
+		\node[shape=circle,draw=black] (4) at (-3,3) {4};
+		\node[shape=circle,draw=black] (2) at (6,3) {2};
+		
+		\draw (0) to[romanianVoltageSource, l = ${E_1 = 5V}$, *-*] (1);
+		\draw (1) to[european resistor,l = $R_2$] (2);
+		
+		\draw (4) to[european resistor,l = $R_4$] (0);
+		\draw (0) to[european resistor,l = $R_5$] (5);
+		
+		\draw (3) to[romanianVoltageSource, l=${E_2 = 2V}$, *-*] (0);
+		
+		
+		\end{circuitikz}
+		\end{center}
+		
+		\begin{center}
+		\caption{Figura 4 : Arbore normal}
+		\end{center}
+		
+			\subsection{Cerin\c{t}a 1.c : Bilan\c{t}ul de puteri}
+			\vspace{2cm}
+			
+			
+			\begin{tabular}{|c|c|}
+			\hline
+		    \large Putere consumatoare & \large Putere generatoare \\
+			\\
+			\hline
+			I\small{4} \cdot U\small{d} = -4 \cdot -1 = 4W & I\small{1} \cdot U\small{a} = -2 \cdot 5 = -10W \\
+			\\
+			\hline
+			I\small{7} \cdot U\small{f} = 3 \cdot -5 = -15W & I\small{5} \cdot U\small{e} = 1 \cdot 4 = 4W\\
+			\\
+			\hline
+			I\small{10} \cdot U\small{k} = 4 \cdot 9 = 36W & I\small{6} \cdot U\small{g} = -1 \cdot -3 = 3W \\
+			\\
+			\hline
+			I\small{2} \cdot U\small{b} = 1 \cdot -3 = -3W & I\small{3} \cdot U\small{c} = -7 \cdot 2 = -14W \\
+			\\
+			\hline
+			I\small{8} \cdot U\small{h} = 6 \cdot -4 = -24W & I\small{9} \cdot U\small{i} = -5 \cdot -3 = 15W \\
+			\\
+			\hline
+			\small 4W + (-15)W +36W + (-3)W + (-24)W & \small (-10)W + 4W + 3W + (-14)W + 15W 
+			\\
+			\hline
+			-2 W & -2 W \\
+			\\
+			\hline
+			
+			\end{tabular}
+		
+	%---------------cerinta 2---------------------------------
+	\newpage
+
+
+	\section{Cerin\c{t}a 2 : Metoda nodal\u{a}}
+	
+		\vspace{2cm}
+		
+		\begin{center}
+		\begin{circuitikz}
+		\node[shape=circle,draw=black] (0) at (0,0) {0};
+		\node[shape=circle,draw=black] (1) at (0,-4) {1};
+		\node[shape=circle,draw=black] (5) at (-5,0) {5};
+		\node[shape=circle,draw=black] (3) at (2,3) {3};
+		\node[shape=circle,draw=black] (4) at (-3,3) {4};
+		\node[shape=circle,draw=black] (2) at (6,3) {2};
+		
+		\draw (0) to[romanianVoltageSource, l = ${E_1 = 5V}$, *-*] (1);
+		\draw (1) to[european resistor,l = $R_2$, *-*] (2);
+		\draw (3) to[european resistor,l = $R_3$, *-*] (4);
+		\draw (4) to[european resistor,l = $R_4$] (0);
+		\draw (0) to[european resistor,l = $R_5$] (5);
+		\draw (4) to[european resistor,l = $R_6$] (5);
+		\draw (3) to[romanianVoltageSource, l=${E_2 = 2V}$, *-*] (0);
+		\draw (5) to[european resistor,l = $R_7$] (-5,-4);
+		\draw[--] (-5,-4) to (1);
+		\draw (2) to[european resistor,l = $R_7$] (6,-4);
+		\draw[--] (1) to (6,-4);
+		\draw (2) to[romanianCurrentSource ,l = $J$, *-*] (3);
+		
+		\draw[->,red] (1) to [bend left] (0);
+		\draw[->,red] (2) to [bend left] (0);
+		\draw[->,red] (3) to [bend left] (0);
+		\draw[->,red] (4) to [bend left] (0);
+		\draw[->,red] (5) to [bend left] (0);
+		\node[text width=0.5cm,red] at(-0.5,-3.8) {V\small{1}};
+		\node[text width=0.5cm,red] at(6.5,3) {V\small{2}};
+		\node[text width=0.5cm,red] at(2,3.5) {V\small{3}};
+		\node[text width=0.5cm,red] at(-3,4) {V\small{4}};
+		\node[text width=0.5cm,red] at(-6,0) {V\small{5}};
+		\node[text width=0.5cm,red] at(0,1) {V\small{0}};
+		
+		\end{circuitikz}
+		\end{center}
+	
+		
+		\paragraph{Circuitul con\c{t}ine 6 noduri \c{s}i 10 laturi.Nodul de referin\c{t}a va fi primul,deoarece in el se intersecteaz\u{a} cele mai multe laturi.Prin urmare el va avea poten\c{t}ialul 0V:}
+		\begin{flushleft}
+		{V\small{0} = 0V;}\\
+		\\
+		
+		\end{flushleft}
+		
+			\hfill
+
+			\subsection{Cerin\c{t}a 2.a : Sistemul de ecua\c{t}ii al metodei nodale}
+			\hfill
+			
+			\paragraph{\c{T}in\^{a}nd cont de regulile metodei nodale am ob\c{t}inut sistemul :}\\
+			\hfill		
+			
+			\begin{cases}
+			G\small{11}V\small{1} + G\small{12}V\small{2} + G\small{13}V\small{3} + G\small{14}V\small{4} + G\small{15}V\small{5} = -I\small{1} \\
+			G\small{21}V\small{1} + G\small{22}V\small{2} + G\small{23}V\small{3} + G\small{24}V\small{3} + G\small{25}V\small{4} + G\small{}V\small{5} = -J \\
+			G\small{31}V\small{1} + G\small{32}V\small{2} + G\small{33}V\small{3} + G\small{34}V\small{4} + G\small{35}V\small{5} = I\small{8} + I\small{3}\\
+			G\small{41}V\small{1} + G\small{42}V\small{2} + G\small{43}V\small{3} + G\small{44}V\small{4} + G\small{45}V\small{5} = 0 \\
+			G\small{51}V\small{1} + G\small{52}V\small{2} + G\small{53}V\small{3} + G\small{54}V\small{4} + G\small{55}V\small{5} = 0 \\
+			
+			\end{cases}	\\
+			\hfill	
+			
+			\paragraph{Unde conductan\c{t}ele de pe diagonala matricei (G\small{ii}) sunt sume ale conductan\c{t}elor adiacente nodului i.Restul conductan\c{t}elor sunt sume ale celor care sunt legate direct de nodul corespunz\u{a}tor.Termenii liberi sunt curen\c{t}ii de scurtcircuit.}\\
+			\\
+			\hfill	
+			\vspace{1cm}
+			
+			\begin{cases}
+			G\small{11}V\small{1} + G\small{12}V\small{2} + G\small{13}V\small{3} + G\small{14}V\small{4} + G\small{15}V\small{5} = -(-2) A\\
+			G\small{21}V\small{1} + G\small{22}V\small{2} + G\small{23}V\small{3} + G\small{24}V\small{3} + G\small{25}V\small{4} + G\small{}V\small{5} = -J = -6 A \\
+			G\small{31}V\small{1} + G\small{32}V\small{2} + G\small{33}V\small{3} + G\small{34}V\small{4} + G\small{35}V\small{5} = -7 + 6 = -1 A\\
+			G\small{41}V\small{1} + G\small{42}V\small{2} + G\small{43}V\small{3} + G\small{44}V\small{4} + G\small{45}V\small{5} = 0 \\
+			G\small{51}V\small{1} + G\small{52}V\small{2} + G\small{53}V\small{3} + G\small{54}V\small{4} + G\small{55}V\small{5} = 0 \\
+			
+			\end{cases}
+
+			\subsection{Cerin\c{t}a 2.b : Dimensiunea matricelor sistemului de ecua\c{t}ii}
+			\vspace{1cm}
+			{G\small{11} = 1 \setminus R{1} + 1 \setminus R\small{2} + 1 \setminus R\small{7} + 1 \setminus \infty = -4 \setminus 9 + 1 \setminus 3 + 5 \setminus 3 = 14 \setminus 9 S}
+			\\
+			{G\small{22} = 0 + 1 \setminus R\small{2} + 1 \setminus R\small{7} = 1 \setminus 3 + 5 \setminus 3 = 2 S}
+			\\
+			{G\small{33} = 0 + 1 \setminus \infty + 1 \setminus R\small{3} = 1 \setminus 3 S}
+			\\
+			{G\small{44} = 1 \setminus R{3} + 1 \setminus R\small{4} + 1 \setminus R\small{6}  = 1 \setminus 3 - 4 + 3 \setminus 5 = -46 \setminus 15 S}
+			\\
+			{G\small{55} = 1 \setminus R{1} + 1 \setminus R\small{5} + 1 \setminus R\small{6} = -4 \setminus 9 + 1 \setminus 4 + 3 \setminus 5 = 73 \setminus 180 S\\}
+			
+			\vspace{1cm}
+			{G\small{12} = G\small{21} = -1 \setminus R\small{2} - 1 \setminus R{7} = -1 \setminus 3 - 5 \setminus 3 = -2 S}
+			\\
+			{G\small{13} = G\small{31} = 0 S}
+			\\
+			\\
+			{G\small{14} = G\small{41} = 0 S}
+			\\
+			{G\small{15} = G\small{51} = -1 \setminus R\small{1} = 4 \setminus 9 S}
+			
+			\vspace{1cm}
+			{G\small{23} = G\small{32} = 0 S}
+			\\
+			{G\small{24} = G\small{42} = 0 S}
+			\\
+			{G\small{25} = G\small{52} = 0 S}
+			
+			\vspace{1cm}
+			{G\small{34} = G\small{43} = -1 \setminus R\small{3} = -1 \setminus 3 S}
+			\\
+			{G\small{35} = G\small{53} = 0 S}
+			\vspace{1cm}
+			\\
+			{G\small{45} = G\small{54} = -1 \setminus R\small{6} = -3 \setminus 5 S}
+			\paragraph{Rela\c{t}iile de mai sus vor constitui matricea A a coeficien\c{t}ilor(5 \times 5):}
+			\vspace{1cm}
+			
+			\[
+				A =
+  				\begin{bmatrix}
+    			\frac{14}{9} & -2 & 0 & 0 & \frac{4}{9} \\
+    			-2 & 2 & 0 & 0 & 0 \\
+    			0 & 0 & \frac{1}{3} & \frac{-1}{3} & 0 \\
+    			0 & 0 & \frac{-1}{3} & \frac{-46}{15} & \frac{-3}{5} \\
+    			\frac{4}{9} & 0 & 0 & \frac{-3}{5} & \frac{73}{180} \\
+    			
+    			
+  				\end{bmatrix}
+			\]
+			
+			\paragraph{Vectorul X al necunoscutelor(al poten\c{t}ialelor) de la noduri :}
+			
+			\[
+				X =
+  				\begin{bmatrix}
+    			V\small{1}\\
+    			V\small{2}\\
+    			V\small{3}\\
+    			V\small{4}\\
+    			V\small{5}\\
+  				\end{bmatrix}
+			\]
+			
+			\paragraph{Vectorul b al curen\c{t}ilor de scurtcircuit ai laturilor ce concur\u{a} la nodurile aferente :}
+			
+		
+			\[
+				B =
+  				\begin{bmatrix}
+    			2\\
+    			-6\\
+    			-1\\
+    			0\\
+    			0\\
+  				\end{bmatrix}
+			\]
+			
+			
+			
+			
+			\hfill
+			\newpage
+			\subsection{Rezolvarea sistemului \^{i}n Octave}
+			\begin{figure}
+			\includegraphics[scale= 1]{Capture.PNG}
+			\vspace{1cm}
+			\end{figure}
+			\endpage
+	
+
+	
+%----------------------cerinta 3--------------------------	
+	
+	\newpage
+	
+	\section{Simulatorul Spice}
+			\hfill
+			
+			\subsection{Cerin\c{t}a 4.b : }
+			\hfill
+			\paragraph{Pentru simularea circuitului am folosit LtSpice,unde am inclus elementele circuitului,iar valorile intensit\u{a}\c{t}ilor \c{s}i tensiunilor au rezultat din simularea acestuia.}
+			\\
+			\begin{alltt}
+				\input{netlist.cir}
+			\end{alltt}
+			
+		
+			\subsection{Cerin\c{t}a 4.c : Simularea circuitului}
+			
+			\vspace{1cm}
+			
+			\begin{figure}
+			\includegraphics[scale= 0.4]{circuit1.png}\vspace{1cm}
+			\end{figure}
+			
+			\begin{figure}
+			\includegraphics[scale= 0.7]{circuit2.png}\vspace{1cm}
+			\end{figure}
+			
+			\begin{figure}
+			\includegraphics[scale= 0.3]{circuit3.png}\vspace{1cm}
+			\end{figure}
+
+	\endpage
+	
+%-------------folosirea latex------------------------
+	\newpage	
+	\section{Redactarea \^{\i }n \LaTeX . Folosirea lui \^{i}n redactarea temei}
+	\hfill
+	
+		\paragraph{Pentru rezolvarea acestei teme,m-am folosit de indica\c{t}iile reg\u{a}site \^{i}n \^{i}ndrumarul dat.De asemenea,m-am folosit \c{s}i de pachetul romanianCircuitSymbols pentru a descrie elementele de circuit cu nota\c{t}iile corespunz\u{a}toare.Mare parte din informa\c{t}iile necesare redact\u{a}rii temei le-am gasit pe https://www.sharelatex.com,dar \c{s}i pe http://tex.stackexchange.com.}
+		\\
+		\vspace{1cm}
+	
+	
+	
+	\section*{Referin\c{t}e}
+	\begin{enumerate}
+	\item \url{https://github.com/PopAdi/circuitikz-romanian-symbols}
+	\item \url{http://cs.curs.pub.ro/2016/course/view.php?id=53}
+	\item \url{http://www.lmn.pub.ro/~gabriela/LatexTemplate4Students/}
+	\item \url{https://www.sharelatex.com}
+	\item \url{ftp://ftp.gust.org.pl/TeX/graphics/pgf/contrib/circuitikz/doc/circuitikzmanual.pdf}
+	
+	\end{enumerate}		
+	
+	
+	
+	
+	\endpage
+	
+	
+
+\end{document}
